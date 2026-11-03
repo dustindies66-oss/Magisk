@@ -54,10 +54,9 @@ BINDIR=$INSTALLER/lib/$ABI
 cd $BINDIR
 for file in lib*.so; do mv "$file" "${file:3:${#file}-6}"; done
 cd /
-cp -af $INSTALLER/lib/$ABI32/libmagisk.so $BINDIR/magisk32 2>/dev/null
+cp -af $INSTALLER/lib/$ABI32/libmagisk.so $BINDIR/magisk32 
+# Check if system root is installed 
 
-# Check if system root is installed and remove
-$BOOTMODE || remove_system_su
 
 ##############
 # Environment
@@ -66,8 +65,8 @@ $BOOTMODE || remove_system_su
 ui_print "- Constructing environment"
 
 # Copy required files
-rm -rf $MAGISKBIN 2>/dev/null
-mkdir -p $MAGISKBIN 2>/dev/null
+rm -rf $MAGISKBIN 
+mkdir -p $MAGISKBIN 
 cp -af $BINDIR/. $COMMONDIR/. $BBBIN $MAGISKBIN
 
 # Remove files only used by the Magisk app
@@ -94,7 +93,6 @@ install_magisk
 
 # Cleanups
 $BOOTMODE || recovery_cleanup
-rm -rf $TMPDIR
 
 ui_print "- Done"
 exit 0
